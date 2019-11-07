@@ -1,0 +1,191 @@
+canvas {
+  border: 1px solid #d8d8d8 !important;
+  background-color: white!important;
+}
+.konvajs-content {
+  margin-top: 40px;
+}
+
+.containerCanvas {
+  height: 100%;
+  flex: 1 0 auto;
+  flex-direction: row;
+  height: calc(100vh - 118px);
+  box-sizing: border-box;
+  flex: 2 1;
+  overflow: scroll;
+  position: relative
+}
+
+.container-area {
+  transition: transform 0.25s ease;
+}
+
+.proximo-btn {
+  border: 1px solid #8d3fdf;
+  color: #fff;
+  background-color: #8d3fdf;
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: auto;
+  margin-right: 16px;
+  transition: 0.2s;
+}
+
+.proximo-btn:hover {
+  opacity: 0.5;
+}
+
+.containerCanvas > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+textarea {
+  background: white;
+}
+
+select {
+  background: #eeeeee;
+  height: 40px;
+  border: none;
+  font-size: 16px;
+}
+
+.containerToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee;
+  -webkit-box-shadow: 0px 3px 11px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 11px -5px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 11px -5px rgba(0,0,0,0.75);
+}
+
+.containerIconeToolbar {
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  transition: 0.2s;
+  padding: 5px;
+}
+
+.containerColors {
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+
+}
+
+.containerIconeToolbar:hover {
+  background-color: #b8e6fe;
+  cursor: pointer;
+}
+
+.img {
+  width: 100% !important;
+  height: auto;
+}
+
+.containerColorPickerPalette {
+  /* position: absolute;
+  left: 0;
+  right: 0; */
+  width: 304px;
+  background: white;
+  border-radius: 20px;
+  z-index: 2;
+  margin: auto;
+  margin-top: 160px;
+
+  padding: 20px;
+  border: 1px solid;
+}
+
+.containerBtnExportar {
+  width: 500px;
+  margin: auto;
+  padding: 20px;
+  padding-top: 50px
+}
+
+.containerCirclePicker {
+  width: 100%;
+  display: flex;
+
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.btnExportar {
+  color: #3f8eb5;
+  height: 56px;
+  border-radius: 28px;
+  border: 1px solid #3f8eb5;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 199px;
+  transition: 0.2s;
+}
+
+.btnExportar:hover {
+  background: #d8d8d8;
+  cursor: pointer;
+}
+
+.containerDropImage {
+  display: flex;
+  padding-top: 4px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.react-draggable, .cursor {
+  cursor: move;
+}
+.react-draggable div {
+  cursor: pointer;
+}
+
+.no-cursor {
+  cursor: auto;
+}
+.cursor-y {
+  cursor: ns-resize;
+}
+.cursor-x {
+  cursor: ew-resize;
+}
+.react-draggable strong {
+  background: #ddd;
+  border: 1px solid #999;
+  border-radius: 3px;
+  display: block;
+  margin-bottom: 10px;
+  padding: 3px 5px;
+  text-align: center;
+}
+.box {
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  width: 180px;
+  height: 180px;
+  margin: 10px;
+  padding: 10px;
+  float: left;
+}
+

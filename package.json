@@ -1,0 +1,39 @@
+{
+  "name": "editor-konva",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "konva": "^4.0.16",
+    "react": "^16.11.0",
+    "react-color": "^2.17.3",
+    "react-dom": "^16.11.0",
+    "react-draggable": "^4.1.0",
+    "react-dropzone": "^10.1.10",
+    "react-keyboard-event-handler": "^1.5.1",
+    "react-konva": "^16.10.1-0",
+    "react-scripts": "3.2.0",
+    "uuid": "^3.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
