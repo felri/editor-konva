@@ -30,10 +30,12 @@ import Triangule from "assets/icons-editor-bar/triangule.png";
 import Front from "assets/icons-editor-bar/front.png";
 import Desfazer from "assets/icons-editor-bar/desfazer.png";
 import Refazer from "assets/icons-editor-bar/refazer.png";
+import Save from "assets/icons-editor-bar/save.png";
 import Back from "assets/icons-editor-bar/back.png";
 import Underline from "assets/icons-editor-bar/underline.png";
 import ZoomIn from "assets/icons-editor-bar/zoom-in.png";
 import ZoomOut from "assets/icons-editor-bar/zoom-out.png";
+import BackgroundIcon from "assets/icons-editor-bar/background.png";
 
 var HISTORY = []
 
@@ -68,11 +70,12 @@ export default class Editor extends Component {
     arrayObjectsLayer: [],
     kanvasWidth: 18.9,
     kanvasHeight: 10,
-    widthKanvas: 18.9,
-    heightKanvas: 10,
+    widthKanvas: 1600,
+    heightKanvas: 800,
     showPallet: false,
     selectedObject: {},
     showBackground: false,
+    backgroundOn: true,
     indexTextSelected: 0,
     zoom: 2,
     imgBase64: undefined,
@@ -83,7 +86,7 @@ export default class Editor extends Component {
       textY: 0,
       textYTextArea: 0,
       textXTextArea: 0,
-      textValue: "Dois cliques para editar",
+      textValue: "Two clicks to edit",
       fontSize: 28,
       width: 250,
       y: 100,
@@ -189,7 +192,7 @@ export default class Editor extends Component {
     arrayObjectsLayer[index].textXTextArea =
       (stageBox.left + absPos.x + this.containerCanvas.current.scrollLeft) / this.state.zoom;
     arrayObjectsLayer[index].textYTextArea =
-      stageBox.bottom + absPos.y - stageBox.height - 40 + this.containerCanvas.current.scrollTop;
+      stageBox.bottom + absPos.y - stageBox.height + 40 + this.containerCanvas.current.scrollTop;
     saveHistory(arrayObjectsLayer)
 
     this.setState({
@@ -510,8 +513,6 @@ export default class Editor extends Component {
     formData.append('totalfilesize', blob.size)
     formData.append('file', blob)
 
-    const self = this
-
     fetch(process.env.REACT_APP_IMAGE_UPLOAD, {
       method: 'POST',
       body: formData
@@ -519,9 +520,9 @@ export default class Editor extends Component {
       .then(response => response.json())
       .then(function (json) {
         if (json.success) {
-          self.props.addImage(json)
-          self.saveEverything()
-          self.props.history.push('/criar/finalizar')
+          setTimeout(() => {
+            window.open(json.files[0].url, "_blank")
+          }, 500);
         }
       },
         error => {
@@ -576,6 +577,13 @@ export default class Editor extends Component {
     this.onControlledDrag(e, position);
     this.onStop();
   };
+
+  backgroundToogle = () => {
+    this.setState({
+      backgroundOn: !this.state.backgroundOn
+    })
+  };
+
   // fim functions de arrastar o trem da cor
 
   render() {
@@ -586,17 +594,24 @@ export default class Editor extends Component {
       showPallet,
       widthKanvas,
       heightKanvas,
+      backgroundOn,
       showBackground,
       zoom
     } = this.state;
-    const width = (widthKanvas * 118.15) / zoom// cm to pixel
-    const height = (heightKanvas * 118.15) / zoom// cm to pixel
+    const width = (widthKanvas) / zoom// cm to pixel
+    const height = (heightKanvas) / zoom// cm to pixel
 
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
     return (
       <div>
         <div className="containerCanvas" ref={this.containerCanvas}>
           <div className="containerToolbar">
+            <div
+              className="containerIconeToolbar"
+              onClick={this.imageToBlob}
+            >
+              <img className="img" src={Save} title="Save as png"></img>
+            </div>
             <div
               className="containerIconeToolbar"
               onClick={this.desfazer}
@@ -726,16 +741,23 @@ export default class Editor extends Component {
               <img className="img" src={Duplicate} title="Duplicar"></img>
             </div>
             <div className="containerIconeToolbar" onClick={() => this.zommStage(zoom + 1)}>
-              <img className="img" src={ZoomOut} title="Duplicar"></img>
+              <img className="img" src={ZoomOut} title="Zoom -"></img>
             </div>
             <div className="containerIconeToolbar" onClick={() => this.zommStage(zoom - 1)}>
-              <img className="img" src={ZoomIn} title="Duplicar"></img>
+              <img className="img" src={ZoomIn} title="Zoom +"></img>
             </div>
             <div className="containerIconeToolbar" onClick={() => this.trazerItem(true)}>
               <img className="img" src={Front} title="Trazer elemento para frente"></img>
             </div>
             <div className="containerIconeToolbar" onClick={() => this.trazerItem()}>
               <img className="img" src={Back} title="Levar elemento para trás"></img>
+            </div>
+            <div className="containerIconeToolbar" onClick={() => this.backgroundToogle()}>
+              <img className="img" src={BackgroundIcon} title="Background"
+                style={
+                  !backgroundOn ? { backgroundColor: "grey" }
+                    : {}
+                }></img>
             </div>
           </div>
           <div>
@@ -771,7 +793,7 @@ export default class Editor extends Component {
                 }}
               >
                 <Layer>
-                  {showBackground && <Background width={5000} height={5000} />}
+                  {(showBackground && backgroundOn) && <Background width={5000} height={5000} />}
                   {
                     arrayObjectsLayer &&
                     arrayObjectsLayer.map((item, index) => {
@@ -873,8 +895,6 @@ export default class Editor extends Component {
               </Stage>
             </div>
             <div className="containerBtnExportar">
-              <Btn title="Salvar" onClick={this.saveEverything} />
-              <Btn title="Próximo passo" onClick={this.imageToBlob} />
             </div>
             {arrayObjectsLayer &&
               arrayObjectsLayer.map((item, index) => {
