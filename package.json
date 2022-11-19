@@ -12,7 +12,7 @@
     "react-dropzone": "^10.1.10",
     "react-keyboard-event-handler": "^1.5.1",
     "react-konva": "^16.10.1-0",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "uuid": "^3.3.3"
   },
   "scripts": {
